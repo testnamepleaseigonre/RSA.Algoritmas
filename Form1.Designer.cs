@@ -46,14 +46,14 @@ namespace RSA.Algoritmas
             // 
             // PTextBox
             // 
-            this.PTextBox.Location = new System.Drawing.Point(85, 85);
+            this.PTextBox.Location = new System.Drawing.Point(89, 65);
             this.PTextBox.Name = "PTextBox";
             this.PTextBox.Size = new System.Drawing.Size(171, 20);
             this.PTextBox.TabIndex = 0;
             // 
             // QTextBox
             // 
-            this.QTextBox.Location = new System.Drawing.Point(85, 111);
+            this.QTextBox.Location = new System.Drawing.Point(89, 91);
             this.QTextBox.Name = "QTextBox";
             this.QTextBox.Size = new System.Drawing.Size(171, 20);
             this.QTextBox.TabIndex = 1;
@@ -61,7 +61,7 @@ namespace RSA.Algoritmas
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 88);
+            this.label1.Location = new System.Drawing.Point(32, 68);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 2;
@@ -70,7 +70,7 @@ namespace RSA.Algoritmas
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 114);
+            this.label2.Location = new System.Drawing.Point(32, 94);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 3;
@@ -78,7 +78,7 @@ namespace RSA.Algoritmas
             // 
             // TextTextBox
             // 
-            this.TextTextBox.Location = new System.Drawing.Point(65, 137);
+            this.TextTextBox.Location = new System.Drawing.Point(69, 117);
             this.TextTextBox.Name = "TextTextBox";
             this.TextTextBox.Size = new System.Drawing.Size(375, 20);
             this.TextTextBox.TabIndex = 4;
@@ -86,7 +86,7 @@ namespace RSA.Algoritmas
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 140);
+            this.label3.Location = new System.Drawing.Point(32, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 5;
@@ -96,7 +96,7 @@ namespace RSA.Algoritmas
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Ravie", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(217, 9);
+            this.label4.Location = new System.Drawing.Point(265, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 34);
             this.label4.TabIndex = 6;
@@ -105,7 +105,7 @@ namespace RSA.Algoritmas
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(28, 206);
+            this.label5.Location = new System.Drawing.Point(34, 146);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(78, 13);
             this.label5.TabIndex = 8;
@@ -113,7 +113,7 @@ namespace RSA.Algoritmas
             // 
             // EncryptedTextBox
             // 
-            this.EncryptedTextBox.Location = new System.Drawing.Point(112, 203);
+            this.EncryptedTextBox.Location = new System.Drawing.Point(118, 143);
             this.EncryptedTextBox.Name = "EncryptedTextBox";
             this.EncryptedTextBox.Size = new System.Drawing.Size(375, 20);
             this.EncryptedTextBox.TabIndex = 7;
@@ -121,7 +121,7 @@ namespace RSA.Algoritmas
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(28, 232);
+            this.label6.Location = new System.Drawing.Point(34, 172);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(79, 13);
             this.label6.TabIndex = 10;
@@ -129,34 +129,36 @@ namespace RSA.Algoritmas
             // 
             // DecryptedTextBox
             // 
-            this.DecryptedTextBox.Location = new System.Drawing.Point(112, 229);
+            this.DecryptedTextBox.Location = new System.Drawing.Point(118, 169);
             this.DecryptedTextBox.Name = "DecryptedTextBox";
             this.DecryptedTextBox.Size = new System.Drawing.Size(375, 20);
             this.DecryptedTextBox.TabIndex = 9;
             // 
             // EncryptButton
             // 
-            this.EncryptButton.Location = new System.Drawing.Point(284, 163);
+            this.EncryptButton.Location = new System.Drawing.Point(450, 115);
             this.EncryptButton.Name = "EncryptButton";
             this.EncryptButton.Size = new System.Drawing.Size(75, 23);
             this.EncryptButton.TabIndex = 11;
             this.EncryptButton.Text = "Encrypt";
             this.EncryptButton.UseVisualStyleBackColor = true;
+            this.EncryptButton.Click += new System.EventHandler(this.EncryptButton_Click);
             // 
             // DecryptButton
             // 
-            this.DecryptButton.Location = new System.Drawing.Point(365, 163);
+            this.DecryptButton.Location = new System.Drawing.Point(499, 141);
             this.DecryptButton.Name = "DecryptButton";
             this.DecryptButton.Size = new System.Drawing.Size(75, 23);
             this.DecryptButton.TabIndex = 12;
             this.DecryptButton.Text = "Decrypt";
             this.DecryptButton.UseVisualStyleBackColor = true;
+            this.DecryptButton.Click += new System.EventHandler(this.DecryptButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 271);
+            this.ClientSize = new System.Drawing.Size(600, 211);
             this.Controls.Add(this.DecryptButton);
             this.Controls.Add(this.EncryptButton);
             this.Controls.Add(this.label6);
