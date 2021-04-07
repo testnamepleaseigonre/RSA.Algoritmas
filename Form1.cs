@@ -8,8 +8,6 @@ namespace RSA.Algoritmas
 {
     public partial class Form1 : Form
     {
-        private Encoding encoding = Encoding.Unicode;
-
         public Form1()
         {
             InitializeComponent();
@@ -49,12 +47,38 @@ namespace RSA.Algoritmas
 
         private void validationBeforeEncrypt()
         {
+            checkPAndQ();
+            if(String.IsNullOrEmpty(TextTextBox.Text) == true || String.IsNullOrWhiteSpace(TextTextBox.Text) == true)
+                throw new Exception("Text to encrypt must not be empty!");
+        }
 
+        private void checkPAndQ()
+        {
+            if (String.IsNullOrEmpty(PTextBox.Text) == true || String.IsNullOrWhiteSpace(PTextBox.Text) == true)
+                throw new Exception("P value must not be empty!");
+            if (String.IsNullOrEmpty(QTextBox.Text) == true || String.IsNullOrWhiteSpace(QTextBox.Text) == true)
+                throw new Exception("Q value must not be empty!");
+            try{ int.Parse(PTextBox.Text); }
+                catch{ throw new Exception("P value must be number!"); }
+            try{ int.Parse(QTextBox.Text); }
+                catch{ throw new Exception("Q value must be number!"); }
+            if(int.Parse(PTextBox.Text) == 0)
+                throw new Exception("P number must be prime!");
+            if (int.Parse(QTextBox.Text) == 0)
+                throw new Exception("Q number must be prime!");
+            for (int i = 2; i < int.Parse(PTextBox.Text); i++)
+                if (int.Parse(PTextBox.Text) % i == 0)
+                    throw new Exception("P number must be prime!");
+            for (int i = 2; i < int.Parse(QTextBox.Text); i++)
+                if (int.Parse(QTextBox.Text) % i == 0)
+                    throw new Exception("Q number must be prime!");
         }
 
         private void validationBeforeDecrypt()
         {
-
+            checkPAndQ();
+            if (String.IsNullOrEmpty(EncryptedTextBox.Text) == true || String.IsNullOrWhiteSpace(EncryptedTextBox.Text) == true)
+                throw new Exception("Text to decrypt must not be empty!");
         }
 
         private void encryptionFunc(int p, int q, string plainText)
@@ -129,7 +153,7 @@ namespace RSA.Algoritmas
 
         private int dFindFunc(int e, int fi)
         {
-            int d = 1;
+            int d = 2;
             while((d * e) % fi != 1)
             {
                 d++;
