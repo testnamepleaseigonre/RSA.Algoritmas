@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Numerics;
 using System.Windows.Forms;
-using System.Text;
+using System.IO;
 
 namespace RSA.Algoritmas
 {
     public partial class Form1 : Form
     {
+        private string folder = @"C:\Users\valde\source\repos\RSA.Algoritmas\bin\Debug\";
+        private string fileName = "encrypted.txt";
+
         public Form1()
         {
             InitializeComponent();
@@ -37,7 +40,7 @@ namespace RSA.Algoritmas
             {
                 DecryptedTextBox.Clear();
                 validationBeforeDecrypt();
-                decryptionFunc(int.Parse(PTextBox.Text), int.Parse(QTextBox.Text), EncryptedTextBox.Text);
+                decryptionFunc();
             }
             catch (Exception exc)
             {
@@ -76,68 +79,106 @@ namespace RSA.Algoritmas
 
         private void validationBeforeDecrypt()
         {
-            checkPAndQ();
-            if (String.IsNullOrEmpty(EncryptedTextBox.Text) == true || String.IsNullOrWhiteSpace(EncryptedTextBox.Text) == true)
-                throw new Exception("Text to decrypt must not be empty!");
+            //checkPAndQ();
+           // if (String.IsNullOrEmpty(EncryptedTextBox.Text) == true || String.IsNullOrWhiteSpace(EncryptedTextBox.Text) == true)
+               // throw new Exception("Text to decrypt must not be empty!");
         }
 
         private void encryptionFunc(int p, int q, string plainText)
         {
             // count n
             int n = p * q;
-            Console.WriteLine($"n = {n}");
+            //Console.WriteLine($"n = {n}");
 
             //count fi
             int fi = (p - 1) * (q - 1);
-            Console.WriteLine($"fi = {fi}");
+            //Console.WriteLine($"fi = {fi}");
 
             //find co-prime
             int e = findCoPrime(fi);
-            Console.WriteLine($"e = {e}");
-
-            //find d
-            int d = dFindFunc(e, fi);
-            Console.WriteLine($"d = {d}");
+            //Console.WriteLine($"e = {e}");
 
             encryptText(n, e, plainText);
         }
 
-        private void decryptionFunc(int p, int q, string cyphText)
+        private void encryptText(int n, int e, string plainText)
         {
-            // count n
-            int n = p * q;
-            Console.WriteLine($"n = {n}");
+            string encryptedText = null;
+            foreach (int temp in getTextInts(plainText))
+            {
+                //Console.WriteLine(Math.Pow(temp, e) % n);
+                encryptedText += (char)(Math.Pow(temp, e) % n);
+            }
+            EncryptedTextBox.Text = encryptedText;
+            string toFile = $"{n}\n{e}\n{encryptedText}";
 
+            string fullPath = folder + fileName;
+            File.WriteAllText(fullPath, toFile);
+        }
+
+        private void decryptionFunc()
+        {
+            int n;
+            int e;
+            string encryptedText = null;
+            string[] allLinesText;
+            string fullPath = folder + fileName;
+            try
+            {
+                try
+                {
+                    allLinesText = File.ReadAllLines(fullPath);
+                }
+                catch
+                {
+                    throw new Exception("File couldn't be found, try to encrypt some text!");
+                }
+                try 
+                {
+                    //Console.WriteLine(allLinesText.Length);
+                    n = int.Parse(allLinesText[0]);
+                    e = int.Parse(allLinesText[1]);
+                    for(int i = 2; i < allLinesText.Length; i++)
+                    {
+                        encryptedText += allLinesText[i];
+                    }
+                }
+                catch
+                {
+                    throw new Exception("File is corrupted!");
+                }
+            }
+            catch(Exception exc)
+            {
+                throw new Exception(exc.Message);
+            }
+
+            int p = findP(n);
+            int q = n / p;
             //count fi
             int fi = (p - 1) * (q - 1);
-            Console.WriteLine($"fi = {fi}");
-
-            //find co-prime
-            int e = findCoPrime(fi);
-            Console.WriteLine($"e = {e}");
-
             //find d
             int d = dFindFunc(e, fi);
-            Console.WriteLine($"d = {d}");
 
-            decryptText(n, d, cyphText);
+            decryptText(n, d, encryptedText);
+        }
+
+        private int findP(int n)
+        {
+            int p = 2;
+            while(n % p != 0)
+            {
+                p++;
+            }
+            return p;
         }
 
         private void decryptText(int n, int d, string cyphText)
         {
             foreach (int temp in getTextInts(cyphText))
             {
-                Console.WriteLine(BigInteger.Pow(temp, d) % n);
+                //Console.WriteLine(BigInteger.Pow(temp, d) % n);
                 DecryptedTextBox.Text += (char)(BigInteger.Pow(temp, d) % n);
-            }
-        }
-
-        private void encryptText(int n, int e, string plainText)
-        {
-            foreach (int temp in getTextInts(plainText))
-            {
-                Console.WriteLine(Math.Pow(temp, e) % n);
-                EncryptedTextBox.Text += (char)(Math.Pow(temp, e) % n);
             }
         }
 
